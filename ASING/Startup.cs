@@ -57,7 +57,13 @@ namespace ASING
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+                //app.UseMigrationsEndPoint();
+                using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                }
             }
             else
             {
