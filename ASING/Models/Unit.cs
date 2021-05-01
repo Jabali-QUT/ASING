@@ -14,6 +14,7 @@ namespace ASING.Models
         public string Code { get; set; }
         public bool GroupsAllowed { get; set; }
         public bool IsAssesementGroup { get; set; }
+        public ICollection<Timetable> Timetables { get; set; }
 
 
     }
