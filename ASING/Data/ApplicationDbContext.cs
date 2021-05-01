@@ -18,6 +18,8 @@ namespace ASING.Data
         public DbSet<UniversityUser> UniversityUsers { get; set; } 
 
         
+
+
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
@@ -28,10 +30,10 @@ namespace ASING.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Group>().HasData(
-                new Group { GroupId = 1, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group1" },
-                new Group { GroupId = 2, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group2" },
-                new Group { GroupId = 3, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group3" },
-                new Group { GroupId = 4, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group4" }
+                new Group { GroupId = 1, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group1", OwnerId=1, UnitId=1 },
+                new Group { GroupId = 2, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group2", OwnerId = 2, UnitId = 2 },
+                new Group { GroupId = 3, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group3", OwnerId = 3, UnitId = 3 },
+                new Group { GroupId = 4, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group4", OwnerId = 4, UnitId = 4 }
                 );
 
             modelBuilder.Entity<UniversityUser>().HasData(
@@ -48,6 +50,18 @@ namespace ASING.Data
                 new Unit { UnitId = 4, Code = "Unit4", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName4" }
                 );
 
+            modelBuilder.Entity<WorkDay>().HasData(
+                new WorkDay { DayId = 1, DayName = "Monday"},
+                new WorkDay { DayId = 2, DayName = "Tuesday" },
+                new WorkDay { DayId = 3, DayName = "Wednesday" },
+                new WorkDay { DayId = 4, DayName = "Thursday" },
+                new WorkDay { DayId = 5, DayName = "Friday" }
+                );
+
+            modelBuilder.Entity<ClassType>().HasData(
+                new ClassType { ClassTypeId = 1, ClassTypeDescription = "Lecture"},
+                new ClassType { ClassTypeId = 2, ClassTypeDescription = "Tutorial" }
+                );
         }
     }
 }

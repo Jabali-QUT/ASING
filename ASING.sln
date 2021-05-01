@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.809.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASING", "ASING\ASING.csproj", "{9F4A16FC-3817-4E69-BB29-E89C026DF980}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASING", "ASING\ASING.csproj", "{9F4A16FC-3817-4E69-BB29-E89C026DF980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASINGWeb", "ASINGWeb\ASINGWeb.csproj", "{5C54B9C7-056E-45E7-9177-73B39DB8E069}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9F4A16FC-3817-4E69-BB29-E89C026DF980}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F4A16FC-3817-4E69-BB29-E89C026DF980}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F4A16FC-3817-4E69-BB29-E89C026DF980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C54B9C7-056E-45E7-9177-73B39DB8E069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C54B9C7-056E-45E7-9177-73B39DB8E069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C54B9C7-056E-45E7-9177-73B39DB8E069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C54B9C7-056E-45E7-9177-73B39DB8E069}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
