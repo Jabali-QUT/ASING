@@ -13,6 +13,7 @@ namespace ASING.Models
         public int UniversityId { get; set; }
         public string FirstName { get; set; }
         public string  Surname { get; set; }
+        public string Profile { get; set; }
 
     }
 }

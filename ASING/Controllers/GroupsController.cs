@@ -44,9 +44,12 @@ namespace ASING.Controllers
         }
 
         // GET: Groups/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            Group group = new Group();
+            group.UnitId = id;
+            //ViewBag.GroupId = id; 
+            return View(group);
         }
 
         // POST: Groups/Create
@@ -54,13 +57,28 @@ namespace ASING.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GroupId,Name,IsOpen,MaxNumber,MinNumber")] Group @group)
+        public async Task<IActionResult> Create([Bind("Name,UnitId")] Group group)
         {
             if (ModelState.IsValid)
             {
+                int id = 1;
+                group.IsOpen = true;
+                group.MaxNumber = 5;
+                group.MinNumber = 3;
+                //group.UnitId = ViewBag.GroupId; 
+                group.OwnerId = id; 
                 _context.Add(@group);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                int groupId = group.GroupId;
+
+                GroupMembership groupMembership = new GroupMembership();
+                groupMembership.GroupId = groupId;
+                groupMembership.StudentId = id;
+                groupMembership.UnitId = group.UnitId;
+                _context.Add(groupMembership);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Details", "UniversityUsers", new { id });
             }
             return View(@group);
         }

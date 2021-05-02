@@ -12,10 +12,15 @@ namespace ASING.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        
+        public DbSet<BlockedTime> BlockedTimes { get; set; }
+        public DbSet<ClassType> ClassTypes { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMembership> GroupMemberships{get;set;} 
+        public DbSet<Registration> Registrations { get; set; }
+        public DbSet<Timetable> Timetables { get; set; }
         public DbSet<Unit> Units { get; set; } 
         public DbSet<UniversityUser> UniversityUsers { get; set; } 
+        public DbSet<WorkDay> WorkDays { get; set; }
 
         
 
@@ -37,10 +42,10 @@ namespace ASING.Data
                 );
 
             modelBuilder.Entity<UniversityUser>().HasData(
-                new UniversityUser { FirstName = "FirstName1", Surname="Surname1", UniversityId=1 },
-                new UniversityUser { FirstName = "FirstName2", Surname = "Surname2", UniversityId = 2 },
-                new UniversityUser { FirstName = "FirstName3", Surname = "Surname3", UniversityId = 3 },
-                new UniversityUser { FirstName = "FirstName4", Surname = "Surname4", UniversityId = 4 }
+                new UniversityUser { FirstName = "FirstName1", Surname="Surname1", UniversityId=1, Profile = "I am a Master of Information Technology student. Looking for group." },
+                new UniversityUser { FirstName = "FirstName2", Surname = "Surname2", UniversityId = 2, Profile = "Student Id 2" },
+                new UniversityUser { FirstName = "FirstName3", Surname = "Surname3", UniversityId = 3, Profile = "Student Id 3" },
+                new UniversityUser { FirstName = "FirstName4", Surname = "Surname4", UniversityId = 4, Profile = "Student Id 4" }
                 );
 
             modelBuilder.Entity<Unit>().HasData(
@@ -62,6 +67,49 @@ namespace ASING.Data
                 new ClassType { ClassTypeId = 1, ClassTypeDescription = "Lecture"},
                 new ClassType { ClassTypeId = 2, ClassTypeDescription = "Tutorial" }
                 );
+
+            modelBuilder.Entity<GroupMembership>().HasData(
+                new GroupMembership { GroupMembershipId = 1, GroupId = 1, StudentId = 1, UnitId = 1},
+                new GroupMembership { GroupMembershipId = 2, GroupId = 2, StudentId = 1, UnitId = 2 },
+                new GroupMembership { GroupMembershipId = 3, GroupId = 3, StudentId = 1, UnitId = 3 },
+
+                new GroupMembership { GroupMembershipId = 4, GroupId = 1, StudentId = 2, UnitId = 1 },
+                new GroupMembership { GroupMembershipId = 5, GroupId = 2, StudentId = 2, UnitId = 2 },
+                new GroupMembership { GroupMembershipId = 6, GroupId = 3, StudentId = 2, UnitId = 3 },
+
+                new GroupMembership { GroupMembershipId = 7, GroupId = 1, StudentId = 3, UnitId = 1 },
+                new GroupMembership { GroupMembershipId = 8, GroupId = 2, StudentId = 3, UnitId = 2 },
+                new GroupMembership { GroupMembershipId = 9, GroupId = 3, StudentId = 3, UnitId = 3 },
+
+                new GroupMembership { GroupMembershipId = 10, GroupId = 1, StudentId = 4, UnitId = 1 },
+                new GroupMembership { GroupMembershipId = 11, GroupId = 2, StudentId = 4, UnitId = 2 },
+                new GroupMembership { GroupMembershipId = 12, GroupId = 3, StudentId = 4, UnitId = 3 }
+
+                );
+
+            modelBuilder.Entity<Registration>().HasData(
+                new Registration { RegistrationId = 1, StudentId = 1, UnitId = 1 },
+                new Registration { RegistrationId = 2, StudentId = 1, UnitId = 2 },
+                new Registration { RegistrationId = 3, StudentId = 1, UnitId = 3 },
+                new Registration { RegistrationId = 4, StudentId = 1, UnitId = 4 },
+
+                new Registration { RegistrationId = 5, StudentId = 2, UnitId = 1 },
+                new Registration { RegistrationId = 6, StudentId = 2, UnitId = 2 },
+                new Registration { RegistrationId = 7, StudentId = 2, UnitId = 3 },
+                new Registration { RegistrationId = 8, StudentId = 2, UnitId = 4 },
+
+                new Registration { RegistrationId = 9, StudentId = 3, UnitId = 1 },
+                new Registration { RegistrationId = 10, StudentId = 3, UnitId = 2 },
+                new Registration { RegistrationId = 11, StudentId = 3, UnitId = 3 },
+                new Registration { RegistrationId = 12, StudentId = 3, UnitId = 4 },
+
+                new Registration { RegistrationId = 13, StudentId = 4, UnitId = 1 },
+                new Registration { RegistrationId = 14, StudentId = 4, UnitId = 2 },
+                new Registration { RegistrationId = 15, StudentId = 4, UnitId = 3 },
+                new Registration { RegistrationId = 16, StudentId = 4, UnitId = 4 }
+                );
+
+
         }
     }
 }
