@@ -16,7 +16,7 @@ namespace ASING.Models
         public WorkDay WorkDay { get; set; }
         public int ClassTypeId { get; set; }
         public ClassType ClassType { get; set; }
-        public DateTime StartTime { get; set; }
+        public DateTime StartTime { get; set; } 
         public DateTime EndTtime { get; set; }    
     }
 }
