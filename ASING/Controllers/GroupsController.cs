@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASING.Data;
 using ASING.Models;
+using ASING.HelperClasses;
 
 namespace ASING.Controllers
 {
@@ -49,6 +50,7 @@ namespace ASING.Controllers
             Group group = new Group();
             group.UnitId = id;
             //ViewBag.GroupId = id; 
+            //StudentAvailability.GetStudentsTimetableTimes(1,_context); 
             return View(group);
         }
 
@@ -79,7 +81,7 @@ namespace ASING.Controllers
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Details", "UniversityUsers", new { id });
-            }
+            } 
             return View(@group);
         }
 

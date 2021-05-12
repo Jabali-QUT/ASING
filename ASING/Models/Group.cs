@@ -17,7 +17,7 @@ namespace ASING.Models
         public int MinNumber { get; set; }
         
         [ForeignKey("UniversityUser")]
-        public int OwnerId { get; set; }
+        public int OwnerId { get; set; } 
         public UniversityUser UniversityUser { get; set; }
 
         public int UnitId { get; set; }

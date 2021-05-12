@@ -109,6 +109,66 @@ namespace ASING.Data
                 new Registration { RegistrationId = 16, StudentId = 4, UnitId = 4 }
                 );
 
+            modelBuilder.Entity<Timetable>().HasData(
+                new Timetable { TimetableId = 1, DayId = 1, UnitId = 1, ClassTypeId =1, StartTime = 9, EndTime = 11 },
+                new Timetable { TimetableId = 2, DayId = 1, UnitId = 2, ClassTypeId = 1, StartTime = 13, EndTime = 15 },
+                new Timetable { TimetableId = 3, DayId = 2, UnitId = 4, ClassTypeId = 1, StartTime = 10, EndTime = 11 },
+                new Timetable { TimetableId = 4, DayId = 2, UnitId = 3, ClassTypeId = 1, StartTime = 11, EndTime = 13 },
+                new Timetable { TimetableId = 5, DayId = 3, UnitId = 2, ClassTypeId = 1, StartTime = 14, EndTime = 16 },
+                new Timetable { TimetableId = 6, DayId = 3, UnitId = 1, ClassTypeId = 1, StartTime = 11, EndTime = 12 },
+                new Timetable { TimetableId = 7, DayId = 5, UnitId = 3, ClassTypeId = 1, StartTime = 8, EndTime = 10 },
+                new Timetable { TimetableId = 8, DayId = 5, UnitId = 4, ClassTypeId = 1, StartTime = 15, EndTime = 16 }
+                );
+
+            modelBuilder.Entity<BlockedTime>().HasData(
+                //student 1 
+                new BlockedTime { BlockedTimeId = 1, DayId = 1, StudentId = 1, StartTime = 8, EndTime = 9},
+                new BlockedTime { BlockedTimeId = 2, DayId = 1, StudentId = 1, StartTime = 18, EndTime = 20 },
+                new BlockedTime { BlockedTimeId = 3, DayId = 2, StudentId = 1, StartTime = 8, EndTime = 9 },
+                new BlockedTime { BlockedTimeId = 4, DayId = 2, StudentId = 1, StartTime = 15, EndTime = 16 },
+                new BlockedTime { BlockedTimeId = 5, DayId = 3, StudentId = 1, StartTime = 8, EndTime = 9 },
+                new BlockedTime { BlockedTimeId = 6, DayId = 3, StudentId = 1, StartTime = 12, EndTime = 13 },
+                new BlockedTime { BlockedTimeId = 7, DayId = 4, StudentId = 1, StartTime = 12, EndTime = 14 },
+                new BlockedTime { BlockedTimeId = 8, DayId = 4, StudentId = 1, StartTime = 16, EndTime = 18 },
+                new BlockedTime { BlockedTimeId = 9, DayId = 5, StudentId = 1, StartTime = 12, EndTime = 14 },
+                new BlockedTime { BlockedTimeId = 10, DayId = 5, StudentId = 1, StartTime = 18, EndTime = 20 },
+
+                //student 2 
+                new BlockedTime { BlockedTimeId = 11, DayId = 1, StudentId = 2, StartTime = 8, EndTime = 9 },
+                new BlockedTime { BlockedTimeId = 12, DayId = 1, StudentId = 2, StartTime = 18, EndTime = 20 },
+                new BlockedTime { BlockedTimeId = 13, DayId = 2, StudentId = 2, StartTime = 9, EndTime = 10 },
+                new BlockedTime { BlockedTimeId = 14, DayId = 2, StudentId = 2, StartTime = 16, EndTime = 18 },
+                new BlockedTime { BlockedTimeId = 15, DayId = 3, StudentId = 2, StartTime = 13, EndTime = 15 },
+                new BlockedTime { BlockedTimeId = 16, DayId = 3, StudentId = 2, StartTime = 18, EndTime = 20 },
+                new BlockedTime { BlockedTimeId = 17, DayId = 4, StudentId = 2, StartTime = 9, EndTime = 12 },
+                new BlockedTime { BlockedTimeId = 18, DayId = 4, StudentId = 2, StartTime = 16, EndTime = 18 },
+                new BlockedTime { BlockedTimeId = 19, DayId = 5, StudentId = 2, StartTime = 12, EndTime = 14 },
+                new BlockedTime { BlockedTimeId = 20, DayId = 5, StudentId = 2, StartTime = 18, EndTime = 20 },
+
+                //student 3 
+                new BlockedTime { BlockedTimeId = 21, DayId = 1, StudentId = 3, StartTime = 12, EndTime = 13 },
+                new BlockedTime { BlockedTimeId = 22, DayId = 1, StudentId = 3, StartTime = 16, EndTime = 17 },
+                new BlockedTime { BlockedTimeId = 23, DayId = 2, StudentId = 3, StartTime = 12, EndTime = 13 },
+                new BlockedTime { BlockedTimeId = 24, DayId = 2, StudentId = 3, StartTime = 18, EndTime = 20 },
+                new BlockedTime { BlockedTimeId = 25, DayId = 3, StudentId = 3, StartTime = 8, EndTime = 9 },
+                new BlockedTime { BlockedTimeId = 26, DayId = 3, StudentId = 3, StartTime = 17, EndTime = 20 },
+                new BlockedTime { BlockedTimeId = 27, DayId = 4, StudentId = 3, StartTime = 10, EndTime = 12 },
+                new BlockedTime { BlockedTimeId = 28, DayId = 4, StudentId = 3, StartTime = 13, EndTime = 16 },
+                new BlockedTime { BlockedTimeId = 29, DayId = 5, StudentId = 3, StartTime = 10, EndTime = 11 },
+                new BlockedTime { BlockedTimeId = 30, DayId = 5, StudentId = 3, StartTime = 16, EndTime = 17 },
+
+                //student 4 
+                new BlockedTime { BlockedTimeId = 31, DayId = 1, StudentId = 4, StartTime = 8, EndTime = 9 },
+                new BlockedTime { BlockedTimeId = 32, DayId = 1, StudentId = 4, StartTime = 18, EndTime = 20 },
+                new BlockedTime { BlockedTimeId = 33, DayId = 2, StudentId = 4, StartTime = 8, EndTime = 9 },
+                new BlockedTime { BlockedTimeId = 34, DayId = 2, StudentId = 4, StartTime = 15, EndTime = 16 },
+                new BlockedTime { BlockedTimeId = 35, DayId = 3, StudentId = 4, StartTime = 8, EndTime = 9 },
+                new BlockedTime { BlockedTimeId = 36, DayId = 3, StudentId = 4, StartTime = 12, EndTime = 13 },
+                new BlockedTime { BlockedTimeId = 37, DayId = 4, StudentId = 4, StartTime = 12, EndTime = 14 },
+                new BlockedTime { BlockedTimeId = 38, DayId = 4, StudentId = 4, StartTime = 16, EndTime = 18 },
+                new BlockedTime { BlockedTimeId = 39, DayId = 5, StudentId = 4, StartTime = 12, EndTime = 14 },
+                new BlockedTime { BlockedTimeId = 40, DayId = 5, StudentId = 4, StartTime = 18, EndTime = 20 }
+                );
 
         }
     }

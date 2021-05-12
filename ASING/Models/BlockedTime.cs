@@ -17,8 +17,8 @@ namespace ASING.Models
         public UniversityUser UniversityUser { get; set; }
         public int DayId { get; set; }
         public WorkDay WorkDay { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public int StartTime { get; set; }
+        public int EndTime { get; set; }
 
 
     }
