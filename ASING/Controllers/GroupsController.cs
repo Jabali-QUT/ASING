@@ -50,7 +50,7 @@ namespace ASING.Controllers
             Group group = new Group();
             group.UnitId = id;
             //ViewBag.GroupId = id; 
-            //StudentAvailability.GetStudentsTimetableTimes(1,_context); 
+            StudentAvailability.GetStudentsTimetableTimes(1,_context); 
             return View(group);
         }
 

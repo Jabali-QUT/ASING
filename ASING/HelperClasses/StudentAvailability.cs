@@ -53,30 +53,42 @@ namespace ASING.HelperClasses
 
         public static string GetStudentsTimetableTimes(int studentId, ApplicationDbContext dbContext)
         {
-            _context = dbContext; 
+            _context = dbContext;
             Dictionary<int, HashSet<string>> dictTimetableByDay = new Dictionary<int, HashSet<string>>();
-            var teat = _context.WorkDays.ToList();
-            var registrationsWithUnits = _context.Registrations.Where(r => r.StudentId == studentId)
-                .Include(r => r.Unit)
-                .ThenInclude(u => u.Timetables).ToList();
+            
+            var registrationsForStudent = _context.Registrations.Where(r => r.StudentId == studentId);
 
-            foreach (var day in _context.WorkDays)
+            foreach (var registration in registrationsForStudent) 
             {
-                var registrationsOnDay = registrationsWithUnits.SelectMany(u => u.Unit.Timetables).Where(t => t.DayId == ;
-                //var registrationsOnDay = registrationsWithUnits.Where(u => u.Unit.Timetables.Any(t => t.DayId == day.DayId)).ToList();
+                var timetables = _context.Timetables.Where(t => t.UnitId == registration.UnitId);
+                foreach (var day in _context.WorkDays)
+                {
+                    var dailyTimetables = timetables.Where(dt => dt.DayId == day.DayId).ToList();
+                    HashSet<string> timeTokens = GetTimeTokensFromTimetables(dailyTimetables);
+                    if (!dictTimetableByDay.ContainsKey(day.DayId))
+                    {
+                        if (timeTokens != null && timeTokens.Count > 0)
+                        {
+                            dictTimetableByDay.Add(day.DayId, timeTokens);
+                        }
+                    }
+                    else
+                    {
+                        HashSet<string> retrievedTimeTokens = new HashSet<string>(dictTimetableByDay[day.DayId]);
+                        retrievedTimeTokens.UnionWith(timeTokens);
+                        dictTimetableByDay[day.DayId] = retrievedTimeTokens; 
+                    }
+
+                }
             }
 
-            //    foreach (var registration in registrationsWithUnits)
-            //{
-            //    //var allTimetables = registration.Unit.Timetables.Where(t => t.DayId == 1);
-            //    //foreach (var day in _context.WorkDays)
-            //    //{
-            //    //    var dailyTimetables = allTimetables.Where(t => t.DayId == day.DayId).ToList();
-            //    //    dictTimetableByDay.Add(day.DayId, GetTimeTokensFromTimetables(dailyTimetables));
-            //    //}
 
-                
-            //}
+
+            return "";
+        }
+
+        public static string GetStudentsBlockedTimes()
+        {
             return "";
         }
 
@@ -100,9 +112,6 @@ namespace ASING.HelperClasses
 
         }
 
-        public static string GetStudentsBlockedTimes( ) 
-        {
-            return ""; 
-        }
+        
     }
 }
