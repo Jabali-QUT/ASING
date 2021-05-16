@@ -75,9 +75,10 @@ namespace ASING.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            int id = 1; 
+            int id = 1;
+            
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+              ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         
             if (ModelState.IsValid)
             {
@@ -88,6 +89,7 @@ namespace ASING.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     //return LocalRedirect(returnUrl);
+                    var user = _userManager.FindByEmailAsync(HttpContext.User.Identity.Name); 
                     return RedirectToAction("Details", "UniversityUsers", new { id });
                 }
                 if (result.RequiresTwoFactor)

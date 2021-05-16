@@ -8,6 +8,7 @@ namespace ASING.ViewModels
     public class StudentAvailabilityMatchViewModel
     {
         public int StudentId { get; set; }
+        public bool IsSelected { get; set; }
         public string FullName { get; set; }
         public string MondayMatch { get; set; }
         public string TuesdayMatch { get; set; }

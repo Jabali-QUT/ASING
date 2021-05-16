@@ -1,4 +1,4 @@
-﻿@model ASING.Models.Group
+﻿@model ASING.ViewModels.StudentAvailableTimeComparisionsViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -9,15 +9,50 @@
 <h4>Group</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="form-group col-md-4">
+                <label asp-for="GroupName" class="control-label"></label>
+                <input asp-for="GroupName" class="form-control" />
+                <span asp-validation-for="GroupName" class="text-danger"></span>
             </div>
+
+            <div class="col-md-12">
+                <table class="table table-responsive table-hover table-striped">
+                    <tr>
+                        <th>@String.Empty</th>
+                        <th>Student Id</th>
+                        <th>Student Name</th>
+                        <th>Monday Match (%)</th>
+                        <th>Tuesday Match (%)</th>
+                        <th>Wednesday Match (%)</th>
+                        <th>Thursday Match (%)</th>
+                        <th>Friday Match (%)</th>
+                        <th>Overall Match (%)</th>
+                    </tr>
+                    @for (int i = 0; i < Model.StudentAvailabilityMatchLists.Count; i++)
+                    {
+                <tr>
+                    <td>@Html.CheckBoxFor(m => m.StudentAvailabilityMatchLists[i].IsSelected)</td>
+                    <td>@Html.DisplayFor(m => m.StudentAvailabilityMatchLists[i].StudentId)</td>
+                    <td>@Model.StudentAvailabilityMatchLists[i].FullName</td>
+                    <td>@Model.StudentAvailabilityMatchLists[i].MondayMatch</td>
+                    <td>@Model.StudentAvailabilityMatchLists[i].TuesdayMatch</td>
+                    <td>@Model.StudentAvailabilityMatchLists[i].WednesdayMatch</td>
+                    <td>@Model.StudentAvailabilityMatchLists[i].ThursdayMatch</td>
+                    <td>@Model.StudentAvailabilityMatchLists[i].FridayMatch</td>
+                    <td>@Model.StudentAvailabilityMatchLists[i].OverallMatch</td>
+                    @Html.HiddenFor(m => m.StudentAvailabilityMatchLists[i].StudentId)
+                    
+                </tr>
+                    }
+                </table>
+            </div>
+
+
             <div><input type="hidden" asp-for="UnitId"></div>
+            <div><input type="hidden" asp-for="StudentId"></div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -32,7 +32,7 @@ namespace ASING.HelperClasses
             EighteenToNineteen, NineteenToTwenty};
 
 
-        public static string GetAvailableTimeComparisions(int studentId, int unitId, ApplicationDbContext dbContext)
+        public static List<StudentAvailabilityMatchViewModel> GetAvailableTimeComparisions(int studentId, int unitId, ApplicationDbContext dbContext)
         {
             _context = dbContext;
             Dictionary<int, HashSet<string>> dictCurrentStudentAvailableTimesByDay = GetStudentsAvailableTimes(studentId, _context);
@@ -93,12 +93,13 @@ namespace ASING.HelperClasses
                 studentAvailabilityMatch.FridayMatch = fridayMatchScore.ToString();
 
                 //Overall match score 
+                studentAvailabilityMatch.IsSelected = false; 
                 studentAvailabilityMatch.OverallMatch = ((mondayMatchScore + tuesdayMatchSore + wednesdayMatchScore + thursdayMatchScore + fridayMatchScore) / 5).ToString();
 
                 studentAvailabilityMatches.Add(studentAvailabilityMatch);
             }
 
-            return ""; 
+            return studentAvailabilityMatches; 
         }
 
 

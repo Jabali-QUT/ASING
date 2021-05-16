@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ASING.Data;
 using ASING.Models;
 using ASING.HelperClasses;
+using ASING.ViewModels;
 
 namespace ASING.Controllers
 {
@@ -47,11 +48,12 @@ namespace ASING.Controllers
         // GET: Groups/Create
         public IActionResult Create(int id)
         {
-            Group group = new Group();
-            group.UnitId = id;
-            //ViewBag.GroupId = id; 
-            string test = StudentAvailability.GetAvailableTimeComparisions(1,4,_context); 
-            return View(group);
+            var studentId = 1; 
+            var studentAvailableTimeComparisionsViewModel = new StudentAvailableTimeComparisionsViewModel();
+            studentAvailableTimeComparisionsViewModel.UnitId = id;
+            studentAvailableTimeComparisionsViewModel.StudentId = studentId;
+            studentAvailableTimeComparisionsViewModel.StudentAvailabilityMatchLists = StudentAvailability.GetAvailableTimeComparisions(studentId, id, _context); 
+            return View(studentAvailableTimeComparisionsViewModel);
         }
 
         // POST: Groups/Create
@@ -59,30 +61,49 @@ namespace ASING.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,UnitId")] Group group)
+        public async Task<IActionResult> Create(StudentAvailableTimeComparisionsViewModel studentAvailableTimeComparisionsViewModel)
         {
             if (ModelState.IsValid)
             {
+                Group group = new Group(); 
                 int id = 1;
                 group.IsOpen = true;
                 group.MaxNumber = 5;
                 group.MinNumber = 3;
                 //group.UnitId = ViewBag.GroupId; 
-                group.OwnerId = id; 
+                group.OwnerId = studentAvailableTimeComparisionsViewModel.StudentId;
+                group.UnitId = studentAvailableTimeComparisionsViewModel.UnitId;
+                group.Name = studentAvailableTimeComparisionsViewModel.GroupName;
                 _context.Add(@group);
                 await _context.SaveChangesAsync();
                 int groupId = group.GroupId;
 
-                GroupMembership groupMembership = new GroupMembership();
-                groupMembership.GroupId = groupId;
-                groupMembership.StudentId = id;
-                groupMembership.UnitId = group.UnitId;
-                _context.Add(groupMembership);
+                GroupMembership groupOwnerMembership = new GroupMembership();
+                groupOwnerMembership.GroupId = groupId;
+                groupOwnerMembership.StudentId = studentAvailableTimeComparisionsViewModel.StudentId;
+                groupOwnerMembership.UnitId = group.UnitId;
+                _context.Add(groupOwnerMembership);
                 await _context.SaveChangesAsync();
+
+                foreach (var studentAvailabilityMatchViewModel in studentAvailableTimeComparisionsViewModel.StudentAvailabilityMatchLists)
+                {
+                    if (studentAvailabilityMatchViewModel.IsSelected)
+                    {
+                        GroupMembership groupMembership = new GroupMembership();
+                        groupMembership.GroupId = groupId;
+                        groupMembership.StudentId = studentAvailabilityMatchViewModel.StudentId;
+                        groupMembership.UnitId = group.UnitId;
+                        _context.Add(groupMembership);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+                
+                
 
                 return RedirectToAction("Details", "UniversityUsers", new { id });
             } 
-            return View(@group);
+            return View(studentAvailableTimeComparisionsViewModel);
         }
 
         // GET: Groups/Edit/5
