@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using static ASING.HelperClasses.Constants;
 
 namespace ASING.Models
 {
@@ -19,6 +20,12 @@ namespace ASING.Models
         public UniversityUser UniversityUser { get; set; }
         public int UnitId { get; set; }
         public Unit Unit { get; set; }
+        public int StatusId { get; set; }
+        [NotMapped]
+        public string StatusName
+        {
+            get { return (Enum.GetName(typeof(Status), StatusId)); } 
+        }
 
     }
 }

@@ -44,13 +44,36 @@
             <tr>
                 <th>Group Id </th>
                 <th>Student Id</th>
+                <th>Status</th>
+                <th>@String.Empty</th>
+                <th>@String.Empty</th>
             </tr>
             @foreach (var groupMembership in unitDetail.GroupMemberships)
             {
-                <tr>
-                    <td>@groupMembership.GroupId</td>
-                    <td>@groupMembership.StudentId</td>
-                </tr>
+        <tr>
+ 
+            <td>@groupMembership.GroupId</td>
+            <td>@groupMembership.StudentId</td>
+            <td>@groupMembership.StatusName</td>
+            <td>
+                @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
+                {
+                    <input type="button" value="Accept" onclick="location.href='@Url.Action("AcceptGroupMembership", "GroupMemberships", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId })'" />
+
+                }
+                else
+                { @String.Empty}
+            </td>
+
+            <td>
+                @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
+                {
+                    <input type="button" value="Deny" onclick="location.href='@Url.Action("DenyGroupMembership", "GroupMemberships", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId } )'" />
+                }
+                else
+                { @String.Empty}
+            </td>
+        </tr>
 
             }
         </table>

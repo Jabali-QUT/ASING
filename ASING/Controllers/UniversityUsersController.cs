@@ -59,6 +59,7 @@ namespace ASING.Controllers
                 unitDetailsVM.UnitId = registration.UnitId; 
                 unitDetailsVM.UnitName = unit.Name;
                 unitDetailsVM.GroupName = group != null ? group.Name: String.Empty;
+                unitDetailsVM.OwnerId = group != null ? group.OwnerId: 0; 
                 unitDetailsVM.GroupMemberships = allGroupMembers;
 
                 //add to students

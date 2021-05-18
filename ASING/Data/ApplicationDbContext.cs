@@ -36,7 +36,7 @@ namespace ASING.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Group>().HasData(
                 new Group { GroupId = 1, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group1", OwnerId = 1, UnitId = 1 },
-                new Group { GroupId = 2, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group2", OwnerId = 2, UnitId = 2 },
+                new Group { GroupId = 2, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group2", OwnerId = 1, UnitId = 2 },
                 new Group { GroupId = 3, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group3", OwnerId = 3, UnitId = 3 },
                 new Group { GroupId = 4, IsOpen = true, MaxNumber = 5, MinNumber = 3, Name = "Group4", OwnerId = 4, UnitId = 4 }
                 );
@@ -69,21 +69,21 @@ namespace ASING.Data
                 );
 
             modelBuilder.Entity<GroupMembership>().HasData(
-                new GroupMembership { GroupMembershipId = 1, GroupId = 1, StudentId = 1, UnitId = 1 },
-                new GroupMembership { GroupMembershipId = 2, GroupId = 2, StudentId = 1, UnitId = 2 },
-                new GroupMembership { GroupMembershipId = 3, GroupId = 3, StudentId = 1, UnitId = 3 },
+                new GroupMembership { GroupMembershipId = 1, GroupId = 1, StudentId = 1, UnitId = 1, StatusId = 1 },
+                new GroupMembership { GroupMembershipId = 2, GroupId = 2, StudentId = 1, UnitId = 2, StatusId = 2 },
+                new GroupMembership { GroupMembershipId = 3, GroupId = 3, StudentId = 1, UnitId = 3, StatusId = 3 },
 
-                new GroupMembership { GroupMembershipId = 4, GroupId = 1, StudentId = 2, UnitId = 1 },
-                new GroupMembership { GroupMembershipId = 5, GroupId = 2, StudentId = 2, UnitId = 2 },
-                new GroupMembership { GroupMembershipId = 6, GroupId = 3, StudentId = 2, UnitId = 3 },
+                new GroupMembership { GroupMembershipId = 4, GroupId = 1, StudentId = 2, UnitId = 1, StatusId = 1 },
+                new GroupMembership { GroupMembershipId = 5, GroupId = 2, StudentId = 2, UnitId = 2, StatusId = 2 },
+                new GroupMembership { GroupMembershipId = 6, GroupId = 3, StudentId = 2, UnitId = 3, StatusId = 3 },
 
-                new GroupMembership { GroupMembershipId = 7, GroupId = 1, StudentId = 3, UnitId = 1 },
-                new GroupMembership { GroupMembershipId = 8, GroupId = 2, StudentId = 3, UnitId = 2 },
-                new GroupMembership { GroupMembershipId = 9, GroupId = 3, StudentId = 3, UnitId = 3 },
+                new GroupMembership { GroupMembershipId = 7, GroupId = 1, StudentId = 3, UnitId = 1, StatusId = 1 },
+                new GroupMembership { GroupMembershipId = 8, GroupId = 2, StudentId = 3, UnitId = 2, StatusId = 2 },
+                new GroupMembership { GroupMembershipId = 9, GroupId = 3, StudentId = 3, UnitId = 3, StatusId = 3 },
 
-                new GroupMembership { GroupMembershipId = 10, GroupId = 1, StudentId = 4, UnitId = 1 },
-                new GroupMembership { GroupMembershipId = 11, GroupId = 2, StudentId = 4, UnitId = 2 },
-                new GroupMembership { GroupMembershipId = 12, GroupId = 3, StudentId = 4, UnitId = 3 }
+                new GroupMembership { GroupMembershipId = 10, GroupId = 1, StudentId = 4, UnitId = 1, StatusId = 1 },
+                new GroupMembership { GroupMembershipId = 11, GroupId = 2, StudentId = 4, UnitId = 2, StatusId = 2 },
+                new GroupMembership { GroupMembershipId = 12, GroupId = 3, StudentId = 4, UnitId = 3, StatusId = 3 }
 
                 );
 

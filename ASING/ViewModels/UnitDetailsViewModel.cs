@@ -11,6 +11,7 @@ namespace ASING.ViewModels
         public int UnitId { get; set; }
         public string UnitName { get; set; } 
         public string GroupName { get; set; }
+        public int  OwnerId { get; set; }
         public List<GroupMembership> GroupMemberships { get; set; } = new List<GroupMembership>(); 
     }
 }

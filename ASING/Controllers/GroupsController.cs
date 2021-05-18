@@ -9,6 +9,7 @@ using ASING.Data;
 using ASING.Models;
 using ASING.HelperClasses;
 using ASING.ViewModels;
+using static ASING.HelperClasses.Constants;
 
 namespace ASING.Controllers
 {
@@ -82,6 +83,7 @@ namespace ASING.Controllers
                 groupOwnerMembership.GroupId = groupId;
                 groupOwnerMembership.StudentId = studentAvailableTimeComparisionsViewModel.StudentId;
                 groupOwnerMembership.UnitId = group.UnitId;
+                groupOwnerMembership.StatusId = (int)Status.Accepted; 
                 _context.Add(groupOwnerMembership);
                 await _context.SaveChangesAsync();
 
@@ -93,6 +95,7 @@ namespace ASING.Controllers
                         groupMembership.GroupId = groupId;
                         groupMembership.StudentId = studentAvailabilityMatchViewModel.StudentId;
                         groupMembership.UnitId = group.UnitId;
+                        groupMembership.StatusId = (int)Status.Invited;
                         _context.Add(groupMembership);
                         await _context.SaveChangesAsync();
                     }
