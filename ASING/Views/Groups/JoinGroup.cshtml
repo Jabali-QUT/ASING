@@ -1,0 +1,43 @@
+﻿@model ASING.ViewModels.StudentJoinGroupViewModel
+@{
+    ViewData["Title"] = "Join Group";
+}
+
+<div>
+    @foreach (var unitGroupDetail in Model.UnitGroupDetails)
+    {
+        <p>Group Name: @unitGroupDetail.GroupName</p>
+
+        <table class="table table-responsive table-hover table-striped">
+            <tr>
+                <th>Student Id</th>
+                <th>Student Name</th>
+                <th>Monday Match (%)</th>
+                <th>Tuesday Match (%)</th>
+                <th>Wednesday Match (%)</th>
+                <th>Thursday Match (%)</th>
+                <th>Friday Match (%)</th>
+                <th>Overall Match (%)</th>
+            </tr>
+            @foreach (var studentAvailability in unitGroupDetail.GroupStudentAvailabilityMatchLists)
+            {
+                <tr>
+                    <td>@studentAvailability.StudentId</td>
+                    <td>@studentAvailability.FullName</td>
+                    <td>@studentAvailability.MondayMatch</td>
+                    <td>@studentAvailability.TuesdayMatch</td>
+                    <td>@studentAvailability.WednesdayMatch</td>
+                    <td>@studentAvailability.ThursdayMatch</td>
+                    <td>@studentAvailability.FridayMatch</td>
+                    <td>@studentAvailability.OverallMatch</td>
+                </tr>
+            }
+        </table>
+        <input type="button" value="Request to Join" onclick="location.href='@Url.Action("RequestToJoin", "Groups", new { studentId = Model.StudentId, groupId = unitGroupDetail.GroupId, unitId = Model.UnitId,  } )'" />
+    }
+    <br />
+    <br />
+    <div>
+        <input type="button" value="Form New Group" onclick="location.href='@Url.Action("Create", "Groups", new { studentId = Model.StudentId, unitId = Model.UnitId,  } )'" />
+    </div>
+</div>

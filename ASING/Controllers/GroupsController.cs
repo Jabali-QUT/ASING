@@ -22,38 +22,73 @@ namespace ASING.Controllers
             _context = context;
         }
 
-        // GET: Groups
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> AcceptGroupMembershipAsync(int studentId, int groupMembershipId)
         {
-            return View(await _context.Groups.ToListAsync());
+            int Id = studentId;
+            var groupMembership = _context.GroupMemberships.Where(g => g.GroupMembershipId == groupMembershipId).FirstOrDefault();
+            groupMembership.StatusId = (int)Status.Accepted;
+            _context.Update(groupMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "UniversityUsers", new { Id });
         }
 
-        // GET: Groups/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DenyGroupMembership(int studentId, int groupMembershipId)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var @group = await _context.Groups
-                .FirstOrDefaultAsync(m => m.GroupId == id);
-            if (@group == null)
-            {
-                return NotFound();
-            }
-
-            return View(@group);
+            int Id = studentId;
+            var groupMembership = await _context.GroupMemberships.FindAsync(groupMembershipId);
+            _context.GroupMemberships.Remove(groupMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "UniversityUsers", new { Id });
         }
+
+        public IActionResult JoinGroup(int studentId, int unitId)
+        {
+            int Id = studentId;
+            var studentJoinGroupVM = new StudentJoinGroupViewModel();
+            studentJoinGroupVM.StudentId = studentId;
+            studentJoinGroupVM.UnitId = unitId;
+            var groups = _context.Groups.Where(g => g.UnitId == unitId && g.IsOpen)
+                            .Include(g => g.GroupMemberships);
+
+            foreach (var group in groups)
+            {
+                var groupDetails = new UnitGroupDetailsViewModel();
+                groupDetails.GroupId = group.GroupId;
+                groupDetails.GroupName = group.Name;
+                var studentIds = group.GroupMemberships.Select(m => m.StudentId).ToList();
+                groupDetails.GroupStudentAvailabilityMatchLists = StudentAvailability.GetAvailableTimeComparisions(studentId, unitId, _context).Where(s => studentIds.Contains(s.StudentId)).ToList();
+                //var overallMatches = groupDetails.GroupStudentAvailabilityMatchLists.Select(m => m.OverallMatch).ToList(); 
+
+                studentJoinGroupVM.UnitGroupDetails.Add(groupDetails);
+            }
+            return View(studentJoinGroupVM);
+            //return RedirectToAction("Details", "UniversityUsers", new { Id });
+        }
+
+        public async Task<IActionResult> RequestToJoin(int studentId, int groupId, int unitId )
+        {
+            int Id = studentId;
+            GroupMembership groupMembership = new GroupMembership();
+            groupMembership.GroupId = groupId;
+            groupMembership.StudentId = studentId;
+            groupMembership.UnitId = unitId;
+            groupMembership.StatusId = (int)Status.Requested;
+            _context.Add(groupMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "UniversityUsers", new { Id });
+        }
+
+
 
         // GET: Groups/Create
-        public IActionResult Create(int id)
+        public IActionResult Create(int studentId, int unitId)
         {
-            var studentId = 1; 
+
+            var studentIdsInGroup = _context.GroupMemberships.Where(g => g.UnitId == unitId).Select(m => m.StudentId).ToList();
             var studentAvailableTimeComparisionsViewModel = new StudentAvailableTimeComparisionsViewModel();
-            studentAvailableTimeComparisionsViewModel.UnitId = id;
+            studentAvailableTimeComparisionsViewModel.UnitId = unitId;
             studentAvailableTimeComparisionsViewModel.StudentId = studentId;
-            studentAvailableTimeComparisionsViewModel.StudentAvailabilityMatchLists = StudentAvailability.GetAvailableTimeComparisions(studentId, id, _context); 
+            studentAvailableTimeComparisionsViewModel.StudentAvailabilityMatchLists = StudentAvailability.GetAvailableTimeComparisions(studentId, unitId, _context).Where(s => !studentIdsInGroup.Contains(s.StudentId)).ToList(); 
             return View(studentAvailableTimeComparisionsViewModel);
         }
 
@@ -67,7 +102,7 @@ namespace ASING.Controllers
             if (ModelState.IsValid)
             {
                 Group group = new Group(); 
-                int id = 1;
+                int id = studentAvailableTimeComparisionsViewModel.StudentId;
                 group.IsOpen = true;
                 group.MaxNumber = 5;
                 group.MinNumber = 3;
@@ -101,12 +136,33 @@ namespace ASING.Controllers
                     }
                 }
 
-                
-                
-
                 return RedirectToAction("Details", "UniversityUsers", new { id });
             } 
             return View(studentAvailableTimeComparisionsViewModel);
+        }
+
+        // GET: Groups
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Groups.ToListAsync());
+        }
+
+        // GET: Groups/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var @group = await _context.Groups
+                .FirstOrDefaultAsync(m => m.GroupId == id);
+            if (@group == null)
+            {
+                return NotFound();
+            }
+
+            return View(@group);
         }
 
         // GET: Groups/Edit/5

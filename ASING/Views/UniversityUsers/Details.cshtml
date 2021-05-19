@@ -40,46 +40,48 @@
 
         @if (unitDetail.GroupMemberships != null && unitDetail.GroupMemberships.Count > 0)
         {
-        <table class="table table-responsive table-hover table-striped">
-            <tr>
-                <th>Group Id </th>
-                <th>Student Id</th>
-                <th>Status</th>
-                <th>@String.Empty</th>
-                <th>@String.Empty</th>
-            </tr>
-            @foreach (var groupMembership in unitDetail.GroupMemberships)
-            {
-        <tr>
- 
-            <td>@groupMembership.GroupId</td>
-            <td>@groupMembership.StudentId</td>
-            <td>@groupMembership.StatusName</td>
-            <td>
-                @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
+            <table class="table table-responsive table-hover table-striped">
+                <tr>
+                    <th>Group Id </th>
+                    <th>Student Id</th>
+                    <th>Status</th>
+                    <th>@String.Empty</th>
+                    <th>@String.Empty</th>
+                </tr>
+                @foreach (var groupMembership in unitDetail.GroupMemberships)
                 {
-                    <input type="button" value="Accept" onclick="location.href='@Url.Action("AcceptGroupMembership", "GroupMemberships", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId })'" />
+                    <tr>
+
+                        <td>@groupMembership.GroupId</td>
+                        <td>@groupMembership.StudentId</td>
+                        <td>@groupMembership.StatusName</td>
+                        <td>
+                            @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
+                            {
+                                <input type="button" value="Accept" onclick="location.href='@Url.Action("AcceptGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId })'" />
+
+                            }
+                            else
+                            { @String.Empty}
+                        </td>
+
+                        <td>
+                            @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
+                            {
+                                <input type="button" value="Deny" onclick="location.href='@Url.Action("DenyGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId } )'" />
+                            }
+                            else
+                            { @String.Empty}
+                        </td>
+                    </tr>
 
                 }
-                else
-                { @String.Empty}
-            </td>
-
-            <td>
-                @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
-                {
-                    <input type="button" value="Deny" onclick="location.href='@Url.Action("DenyGroupMembership", "GroupMemberships", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId } )'" />
-                }
-                else
-                { @String.Empty}
-            </td>
-        </tr>
-
-            }
-        </table>
-        }else
+            </table>
+        }
+        else
         {
-            <a asp-controller="Groups" asp-action="Create" asp-route-id="@unitDetail.UnitId">Create Group</a>
+            <input type="button" value="Join Group" onclick="location.href='@Url.Action("JoinGroup", "Groups", new { studentId = Model.UniversityUser.UniversityId, unitId = unitDetail.UnitId } )'" />
+
         }
     }
 </div>

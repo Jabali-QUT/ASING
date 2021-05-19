@@ -20,25 +20,6 @@ namespace ASING.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> AcceptGroupMembershipAsync(int studentId, int groupMembershipId)
-        {
-            int Id = studentId;
-            var groupMembership = _context.GroupMemberships.Where(g => g.GroupMembershipId == groupMembershipId).FirstOrDefault();
-            groupMembership.StatusId = (int)Status.Accepted;
-            _context.Update(groupMembership);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "UniversityUsers", new { Id });
-        }
-
-        public async Task<IActionResult> DenyGroupMembership(int studentId, int groupMembershipId)
-        {
-            int Id = studentId;
-            var groupMembership = await _context.GroupMemberships.FindAsync(groupMembershipId);
-            _context.GroupMemberships.Remove(groupMembership);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "UniversityUsers", new { Id });
-        }
-
 
         // GET: GroupMemberships
         public async Task<IActionResult> Index()
