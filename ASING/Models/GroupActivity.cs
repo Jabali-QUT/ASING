@@ -15,7 +15,8 @@ namespace ASING.Models
         public int GroupId { get; set; }
         public Group Group { get; set; }
         public string Description { get; set; }
-        public DateTime ActivityDate { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public bool Isrecurring { get; set; }
         public int FrequencyId { get; set; }
         

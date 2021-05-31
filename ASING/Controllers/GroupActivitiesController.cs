@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASING.Data;
 using ASING.Models;
+using ASING.ViewModels;
 
 namespace ASING.Controllers
 {
@@ -22,13 +23,43 @@ namespace ASING.Controllers
         // GET: GroupActivities
         public async Task<IActionResult> Index(int groupId, int studentId)
         {
-            var groupActivities = _context.GroupActivities.Include(g => g.Group)
-                .Include(g => g.UniversityUser)
-                .Include(g => g.GroupActivityMemberships)
-                .Where(g => g.GroupId == groupId).ToListAsync();
+            //var groupActivities = _context.GroupActivities.Include(g => g.Group)
+            //    .Include(g => g.UniversityUser)
+            //    .Include(g => g.GroupActivityMemberships)
+            //    .Where(g => g.GroupId == groupId).ToListAsync();
 
+            var group = _context.Groups.Where(g => g.GroupId == groupId).FirstOrDefault();
+            var groupActivities = _context.GroupActivities.Include(ga => ga.UniversityUser).Where(ga => ga.GroupId == groupId).ToList();
+            GroupActivitiesViewModel groupActivitiesVM = new GroupActivitiesViewModel();
 
-            return View(await groupActivities);
+            groupActivitiesVM.GroupName = group.Name;
+
+            foreach (var groupActivity in groupActivities)
+            {
+                GroupEventViewModel groupEventVM = new GroupEventViewModel();
+                groupEventVM.GroupActivityId = groupActivity.GoupActivityId;
+                groupEventVM.EventDescription = groupActivity.Description;
+                groupEventVM.StartTime = groupActivity.StartTime;
+                groupEventVM.EndTime = groupActivity.EndTime;
+                groupEventVM.Isrecurring = groupActivity.Isrecurring;
+                groupEventVM.Frequency = groupActivity.FrequencyName;
+                groupEventVM.CreatedBy = groupActivity.UniversityUser.Fullname;
+                var groupEventParticipations = _context.GroupActivityMemberships.Include(g => g.UniversityUser).Where(g => g.GoupActivityId == groupActivity.GoupActivityId && g.GroupId == groupId).ToList();
+                foreach (var groupEventParticipation in groupEventParticipations)
+                {
+                    GroupEventParticipationViewModel groupEventParticipationVM = new GroupEventParticipationViewModel();
+                    groupEventParticipationVM.GroupActivityMembershipId = groupEventParticipation.GroupActivityMembershipId;
+                    groupEventParticipationVM.StudentId = groupEventParticipation.StudentId;
+                    groupEventParticipationVM.StudentName = groupEventParticipation.UniversityUser.Fullname;
+                    groupEventParticipationVM.StatusId = groupEventParticipation.StatusId;
+                    groupEventParticipationVM.StatusName = groupEventParticipation.StatusName;
+                    groupEventVM.GroupEventParticipation.Add(groupEventParticipationVM); 
+                }
+
+                groupActivitiesVM.GroupEvents.Add(groupEventVM);
+
+            }
+            return View(groupActivitiesVM);
         }
 
         // GET: GroupActivities/Details/5

@@ -1,74 +1,83 @@
-﻿@model IEnumerable<ASING.Models.GroupActivity>
+﻿@model ASING.ViewModels.GroupActivitiesViewModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Group Activities";
 }
 
-<!DOCTYPE html>
+<!--!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title><h1>Group Activities</h1></title>
 </head>
-<body>
-<p>
+<body-->
+<!--p>
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+</p-->
+
+<div>
+    <table cellpadding="0" cellspacing="0" class="table table-responsive table-hover table-striped">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.GoupActivityId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActivityDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Isrecurring)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FrequencyName)
-            </th>
-            <th>
-               @String.Empty
-            </th>
             <th></th>
+            <th>Activity ID</th>
+            <th>Description</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Recurring</th>
+            <th>Frequency</th>
+            <th>Created By</th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GoupActivityId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivityDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Isrecurring)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FrequencyName)
-            </td>
-            <td>
-                @String.Empty
-            </td>
-            <td>
-                @if (item.OwnerId == 1)
-                {
-                <a asp-action="Delete" asp-route-id="@item.GoupActivityId">Delete</a>
-                }
-            </td>
-        </tr>
+        @foreach (var groupEvent in Model.GroupEvents)
+        {
+            <tr>
+                <td>
+                    <img src="~/Images/plus.png" />
+                    <div style="display:none">
+                        <table cellpadding="0" cellspacing="0" class="table table-responsive table-hover table-striped">
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Status</th>
+                            </tr>
+                            @foreach (var groupEventParticipant in groupEvent.GroupEventParticipation)
+                            {
+                                <tr>
+                                    <td>@groupEventParticipant.StudentId</td>
+                                    <td>@groupEventParticipant.StudentName</td>
+                                    <td>@groupEventParticipant.StatusName</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </td>
+                <td>@groupEvent.GroupActivityId</td>
+                <td>@groupEvent.EventDescription</td>
+                <td>@groupEvent.StartTime</td>
+                <td>@groupEvent.EndTime</td>
+                <td>@groupEvent.Isrecurring</td>
+                <td>@groupEvent.Frequency</td>
+                <td>@groupEvent.CreatedBy</td>
+            </tr>
+
+        }
+
+    </table>
+</div>
+@section Scripts {
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        //Assign Click event to Plus Image.
+        $("body").on("click", "img[src*='plus.png']", function () {
+            $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+            $(this).attr("src", "/images/minus.png");
+        });
+        //Assign Click event to Minus Image.
+        $("body").on("click", "img[src*='minus.png']", function () {
+            $(this).attr("src", "/images/plus.png");
+            $(this).closest("tr").next().remove();
+        });
+    </script>
 }
-    </tbody>
-</table>
-</body>
-</html>
+    <!--/body-->
+    <!--/html-->
