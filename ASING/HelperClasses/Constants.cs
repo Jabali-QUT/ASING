@@ -14,5 +14,12 @@ namespace ASING.HelperClasses
             Accepted = 3 
 
         }
+
+        public enum Frequency
+        {
+            None = 0,
+            Daily = 1, 
+            Weekly = 2
+        }
     }
 }

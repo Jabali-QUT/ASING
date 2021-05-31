@@ -58,6 +58,7 @@ namespace ASING.Controllers
                 var unitDetailsVM = new UnitDetailsViewModel();
                 unitDetailsVM.UnitId = registration.UnitId; 
                 unitDetailsVM.UnitName = unit.Name;
+                unitDetailsVM.GroupId = group != null ? group.GroupId : 0;
                 unitDetailsVM.GroupName = group != null ? group.Name: String.Empty;
                 unitDetailsVM.OwnerId = group != null ? group.OwnerId: 0; 
                 unitDetailsVM.GroupMemberships = allGroupMembers;

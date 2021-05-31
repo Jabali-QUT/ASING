@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ASING.Models.GroupActivity>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GoupActivityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Isrecurring)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrequencyName)
+            </th>
+            <th>
+               @String.Empty
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoupActivityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Isrecurring)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrequencyName)
+            </td>
+            <td>
+                @String.Empty
+            </td>
+            <td>
+                @if (item.OwnerId == 1)
+                {
+                <a asp-action="Delete" asp-route-id="@item.GoupActivityId">Delete</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

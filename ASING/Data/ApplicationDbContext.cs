@@ -21,7 +21,9 @@ namespace ASING.Data
         public DbSet<Unit> Units { get; set; }
         public DbSet<UniversityUser> UniversityUsers { get; set; }
         public DbSet<WorkDay> WorkDays { get; set; }
+        public DbSet<GroupActivity> GroupActivities { get; set; }
 
+        public DbSet<GroupActivityMembership> GroupActivityMemberships { get; set; }
 
 
 
@@ -247,6 +249,77 @@ namespace ASING.Data
                 new BlockedTime { BlockedTimeId = 90, DayId = 5, StudentId = 8, StartTime = 18, EndTime = 20 }
                 );
 
+            modelBuilder.Entity<GroupActivity>().HasData(
+                //group 1
+                new GroupActivity { GoupActivityId = 1, GroupId = 1, Description = "Meeting for group 1", ActivityDate = new DateTime(2021, 6, 10, 9, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 1 },
+                new GroupActivity { GoupActivityId = 2, GroupId = 1, Description = "Assignment Collaboration for group 1", ActivityDate = new DateTime(2021, 6, 10, 13, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 1 },
+
+                //group 2 
+                new GroupActivity { GoupActivityId = 3, GroupId = 2, Description = "Meeting for group 2", ActivityDate = new DateTime(2021, 6, 12, 9, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 2 },
+                new GroupActivity { GoupActivityId = 4, GroupId = 2, Description = "Assignment Collaboration for group 2", ActivityDate = new DateTime(2021, 6, 12, 13, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 2 },
+                
+                //group 3 
+                new GroupActivity { GoupActivityId = 5, GroupId = 3, Description = "Meeting for group 3", ActivityDate = new DateTime(2021, 6, 14, 9, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 3 },
+                new GroupActivity { GoupActivityId = 6, GroupId = 3, Description = "Assignment Collaboration for group 3", ActivityDate = new DateTime(2021, 6, 14, 13, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 3 },
+
+                //group 4
+                new GroupActivity { GoupActivityId = 7, GroupId = 4, Description = "Meeting for group 4", ActivityDate = new DateTime(2021, 6, 16, 9, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 4 },
+                new GroupActivity { GoupActivityId = 8, GroupId = 4, Description = "Assignment Collaboration for group 4", ActivityDate = new DateTime(2021, 6, 16, 13, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 4 }
+                );
+
+            modelBuilder.Entity<GroupActivityMembership>().HasData(
+                //group 1 - first activity
+                new GroupActivityMembership { GroupActivityMembershipId = 1, GroupId = 1, GoupActivityId = 1, StudentId = 1, StatusId = 3},
+                new GroupActivityMembership { GroupActivityMembershipId = 2, GroupId = 1, GoupActivityId = 1, StudentId = 2, StatusId = 3},
+                new GroupActivityMembership { GroupActivityMembershipId = 3, GroupId = 1, GoupActivityId = 1, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 4, GroupId = 1, GoupActivityId = 1, StudentId = 4, StatusId = 3 },
+
+                //group 1 - second activity
+                new GroupActivityMembership { GroupActivityMembershipId = 5, GroupId = 1, GoupActivityId = 2, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 6, GroupId = 1, GoupActivityId = 2, StudentId = 2, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 7, GroupId = 1, GoupActivityId = 2, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 8, GroupId = 1, GoupActivityId = 2, StudentId = 4, StatusId = 3 },
+                
+                //group 2 - first activity
+                new GroupActivityMembership { GroupActivityMembershipId = 9, GroupId = 2, GoupActivityId = 3, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 10, GroupId = 2, GoupActivityId = 3, StudentId = 2, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 11, GroupId = 2, GoupActivityId = 3, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 12, GroupId = 2, GoupActivityId = 3, StudentId = 4, StatusId = 3 },
+
+                //group 2 - second activity
+                new GroupActivityMembership { GroupActivityMembershipId = 13, GroupId = 2, GoupActivityId = 4, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 14, GroupId = 2, GoupActivityId = 4, StudentId = 2, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 15, GroupId = 2, GoupActivityId = 4, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 16, GroupId = 2, GoupActivityId = 4, StudentId = 4, StatusId = 3 },
+
+                //group 3 - first activity
+                new GroupActivityMembership { GroupActivityMembershipId = 17, GroupId = 3, GoupActivityId = 5, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 18, GroupId = 3, GoupActivityId = 5, StudentId = 2, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 19, GroupId = 3, GoupActivityId = 5, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 20, GroupId = 3, GoupActivityId = 5, StudentId = 4, StatusId = 3 },
+
+                //group 3 - second activity
+                new GroupActivityMembership { GroupActivityMembershipId = 21, GroupId = 3, GoupActivityId = 6, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 22, GroupId = 3, GoupActivityId = 6, StudentId = 2, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 23, GroupId = 3, GoupActivityId = 6, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 24, GroupId = 3, GoupActivityId = 6, StudentId = 4, StatusId = 3 },
+
+                //group 4 - first activity
+                new GroupActivityMembership { GroupActivityMembershipId = 25, GroupId = 4, GoupActivityId = 7, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 26, GroupId = 4, GoupActivityId = 7, StudentId = 2, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 27, GroupId = 4, GoupActivityId = 7, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 28, GroupId = 4, GoupActivityId = 7, StudentId = 4, StatusId = 3 },
+
+                //group 4 - second activity
+                new GroupActivityMembership { GroupActivityMembershipId = 29, GroupId = 4, GoupActivityId = 8, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 30, GroupId = 4, GoupActivityId = 8, StudentId = 2, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 31, GroupId = 4, GoupActivityId = 8, StudentId = 3, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 32, GroupId = 4, GoupActivityId = 8, StudentId = 4, StatusId = 3 }
+
+                );
+
         }
+
+
     }
 }

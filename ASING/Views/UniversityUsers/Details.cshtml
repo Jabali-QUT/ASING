@@ -77,6 +77,9 @@
 
                 }
             </table>
+            <input type="button" value="Group Activities" onclick="location.href='@Url.Action("Index", "GroupActivities", new { groupId = unitDetail.GroupId, studentId = Model.UniversityUser.UniversityId, unitId = unitDetail.UnitId } )'" />
+
+
         }
         else
         {
