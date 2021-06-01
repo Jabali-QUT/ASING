@@ -10,6 +10,7 @@ using ASING.Models;
 using ASING.ViewModels;
 using ASING.HelperClasses;
 using System.Text;
+using static ASING.HelperClasses.Constants;
 
 namespace ASING.Controllers
 {
@@ -35,7 +36,8 @@ namespace ASING.Controllers
             GroupActivitiesViewModel groupActivitiesVM = new GroupActivitiesViewModel();
 
             groupActivitiesVM.GroupName = group.Name;
-            groupActivitiesVM.GroupId = group.GroupId; 
+            groupActivitiesVM.GroupId = group.GroupId;
+            groupActivitiesVM.StudentId = studentId; 
             foreach (var groupActivity in groupActivities)
             {
                 GroupEventViewModel groupEventVM = new GroupEventViewModel();
@@ -99,11 +101,12 @@ namespace ASING.Controllers
         }
 
         // GET: GroupActivities/Create
-        public IActionResult Create()
+        public IActionResult Create(int groupId, int studentId)
         {
-            ViewData["GroupId"] = new SelectList(_context.Groups, "GroupId", "GroupId");
-            ViewData["OwnerId"] = new SelectList(_context.UniversityUsers, "UniversityId", "UniversityId");
-            return View();
+            var groupActivity = new GroupActivity();
+            groupActivity.GroupId = groupId;
+            groupActivity.OwnerId = studentId; 
+            return View(groupActivity);
         }
 
         // POST: GroupActivities/Create
@@ -111,16 +114,29 @@ namespace ASING.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GoupActivityId,GroupId,Description,ActivityDate,Isrecurring,FrequencyId,OwnerId")] GroupActivity groupActivity)
+        public async Task<IActionResult> Create(GroupActivity groupActivity)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(groupActivity);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                int groupActivityId = groupActivity.GoupActivityId;
+                var studentIdsInGroup = _context.GroupMemberships.Where(g => g.GroupId == groupActivity.GroupId).Select(m => m.StudentId).ToList();
+
+                foreach (var studentId in studentIdsInGroup)
+                {
+                    GroupActivityMembership groupActivityMembership = new GroupActivityMembership();
+                    groupActivityMembership.GroupId = groupActivity.GroupId;
+                    groupActivityMembership.GoupActivityId = groupActivityId;
+                    groupActivityMembership.StudentId = studentId;
+                    groupActivityMembership.StatusId = groupActivity.OwnerId == studentId ? (int)Status.Accepted : (int)Status.Invited;
+                    _context.Add(groupActivityMembership);
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToAction("Index", new { groupId = groupActivity.GroupId, studentId = groupActivity.OwnerId });
             }
-            ViewData["GroupId"] = new SelectList(_context.Groups, "GroupId", "GroupId", groupActivity.GroupId);
-            ViewData["OwnerId"] = new SelectList(_context.UniversityUsers, "UniversityId", "UniversityId", groupActivity.OwnerId);
+
             return View(groupActivity);
         }
 

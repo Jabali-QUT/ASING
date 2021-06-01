@@ -10,6 +10,7 @@ namespace ASING.ViewModels
     {
         public string GroupName { get; set; }
         public int GroupId { get; set; }
+        public int StudentId { get; set; }
         public List<GroupEventViewModel> GroupEvents { get; set; } = new List<GroupEventViewModel>(); 
 
         public List<GroupActivityMembership> PendingMemberships = new List<GroupActivityMembership>(); 

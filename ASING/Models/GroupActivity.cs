@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace ASING.Models
         public string Location { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        
+        [DisplayName("Recurring")]
         public bool Isrecurring { get; set; }
+        [DisplayName("Frequency")]
         public int FrequencyId { get; set; }
         
         [NotMapped]

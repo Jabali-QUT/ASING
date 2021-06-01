@@ -13,7 +13,8 @@
 </head>
 <body-->
 <p>
-    <a asp-action="Create">Create New</a>
+    <input type="button" class="btn btn-primary" value="Create Activity" onclick="location.href='@Url.Action("Create", "GroupActivities", new { groupId = Model.GroupId, studentId = Model.StudentId } )'" />
+
 </p>
 
 <div>
@@ -62,7 +63,7 @@
             </tr>
 
         }
-
+        <div><input type="hidden" asp-for="StudentId"></div>
     </table>
     <p>
         <input type="button" class="btn btn-primary" value="Download Calendar" onclick="location.href='@Url.Action("DownloadCalendar", "GroupActivities", new { groupId = Model.GroupId } )'" />
