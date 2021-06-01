@@ -12,11 +12,12 @@
     <title><h1>Group Activities</h1></title>
 </head>
 <body-->
-<!--p>
+<p>
     <a asp-action="Create">Create New</a>
-</p-->
+</p>
 
 <div>
+    <h1>Group event Details</h1>
     <table cellpadding="0" cellspacing="0" class="table table-responsive table-hover table-striped">
         <tr>
             <th></th>
@@ -63,6 +64,11 @@
         }
 
     </table>
+    <p>
+        <input type="button" class="btn btn-primary" value="Download Calendar" onclick="location.href='@Url.Action("DownloadCalendar", "GroupActivities", new { groupId = Model.GroupId } )'" />
+
+    </p>
+
 </div>
 @section Scripts {
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

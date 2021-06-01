@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ASING.Data;
 using ASING.Models;
 using ASING.ViewModels;
+using ASING.HelperClasses;
+using System.Text;
 
 namespace ASING.Controllers
 {
@@ -33,7 +35,7 @@ namespace ASING.Controllers
             GroupActivitiesViewModel groupActivitiesVM = new GroupActivitiesViewModel();
 
             groupActivitiesVM.GroupName = group.Name;
-
+            groupActivitiesVM.GroupId = group.GroupId; 
             foreach (var groupActivity in groupActivities)
             {
                 GroupEventViewModel groupEventVM = new GroupEventViewModel();
@@ -62,8 +64,20 @@ namespace ASING.Controllers
             return View(groupActivitiesVM);
         }
 
-        // GET: GroupActivities/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet("download")]
+        public IActionResult DownloadCalendar(int groupId)
+        {
+            var groupActivities = _context.GroupActivities.Where(g => g.GroupId == groupId).ToList();
+            var calendarString = ActivityCalendar.DownloadCalendar(groupActivities);
+            var fileContents = Encoding.ASCII.GetBytes(calendarString);
+            var contentType = "text/calendar";
+            var fileDownloadName = "GroupActivity.ics";
+            return File(fileContents, contentType, fileDownloadName);
+
+        }
+
+            // GET: GroupActivities/Details/5
+            public async Task<IActionResult> Details(int? id)
 
         {
             if (id == null)

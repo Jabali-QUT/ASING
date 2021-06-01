@@ -251,20 +251,20 @@ namespace ASING.Data
 
             modelBuilder.Entity<GroupActivity>().HasData(
                 //group 1
-                new GroupActivity { GoupActivityId = 1, GroupId = 1, Description = "Meeting for group 1", StartTime = new DateTime(2021, 6, 10, 9, 0, 0), EndTime = new DateTime(2021, 6, 10, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 1 },
-                new GroupActivity { GoupActivityId = 2, GroupId = 1, Description = "Assignment Collaboration for group 1", StartTime = new DateTime(2021, 6, 10, 13, 0, 0), EndTime = new DateTime(2021, 6, 10, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 1 },
+                new GroupActivity { GoupActivityId = 1, GroupId = 1, Summary= "Group 1 Meeting", Location = "Library", Description = "Meeting for group 1", StartTime = new DateTime(2021, 6, 10, 9, 0, 0), EndTime = new DateTime(2021, 6, 10, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 1 },
+                new GroupActivity { GoupActivityId = 2, GroupId = 1, Summary = "Group 1 Study", Location = "Online", Description = "Assignment Collaboration for group 1", StartTime = new DateTime(2021, 6, 10, 13, 0, 0), EndTime = new DateTime(2021, 6, 10, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 1 },
 
                 //group 2 
-                new GroupActivity { GoupActivityId = 3, GroupId = 2, Description = "Meeting for group 2", StartTime = new DateTime(2021, 6, 12, 9, 0, 0), EndTime = new DateTime(2021, 6, 12, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 2 },
-                new GroupActivity { GoupActivityId = 4, GroupId = 2, Description = "Assignment Collaboration for group 2", StartTime = new DateTime(2021, 6, 12, 13, 0, 0), EndTime = new DateTime(2021, 6, 12, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 2 },
+                new GroupActivity { GoupActivityId = 3, GroupId = 2, Summary = "Group 2 Meeting", Location = "Library", Description = "Meeting for group 2", StartTime = new DateTime(2021, 6, 12, 9, 0, 0), EndTime = new DateTime(2021, 6, 12, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 2 },
+                new GroupActivity { GoupActivityId = 4, GroupId = 2, Summary = "Group 2 Study", Location = "Online", Description = "Assignment Collaboration for group 2", StartTime = new DateTime(2021, 6, 12, 13, 0, 0), EndTime = new DateTime(2021, 6, 12, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 2 },
                 
                 //group 3 
-                new GroupActivity { GoupActivityId = 5, GroupId = 3, Description = "Meeting for group 3", StartTime = new DateTime(2021, 6, 14, 9, 0, 0), EndTime = new DateTime(2021, 6, 14, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 3 },
-                new GroupActivity { GoupActivityId = 6, GroupId = 3, Description = "Assignment Collaboration for group 3", StartTime = new DateTime(2021, 6, 14, 13, 0, 0), EndTime = new DateTime(2021, 6, 14, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 3 },
+                new GroupActivity { GoupActivityId = 5, GroupId = 3, Summary = "Group 3 Meeting", Location = "Library", Description = "Meeting for group 3", StartTime = new DateTime(2021, 6, 14, 9, 0, 0), EndTime = new DateTime(2021, 6, 14, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 3 },
+                new GroupActivity { GoupActivityId = 6, GroupId = 3, Summary = "Group 3 Study", Location = "Online", Description = "Assignment Collaboration for group 3", StartTime = new DateTime(2021, 6, 14, 13, 0, 0), EndTime = new DateTime(2021, 6, 14, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 3 },
 
                 //group 4
-                new GroupActivity { GoupActivityId = 7, GroupId = 4, Description = "Meeting for group 4", StartTime = new DateTime(2021, 6, 16, 9, 0, 0), EndTime = new DateTime(2021, 6, 16, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 4 },
-                new GroupActivity { GoupActivityId = 8, GroupId = 4, Description = "Assignment Collaboration for group 4", StartTime = new DateTime(2021, 6, 16, 13, 0, 0), EndTime = new DateTime(2021, 6, 16, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 4 }
+                new GroupActivity { GoupActivityId = 7, GroupId = 4, Summary = "Group 4 Meeting", Location = "Library", Description = "Meeting for group 4", StartTime = new DateTime(2021, 6, 16, 9, 0, 0), EndTime = new DateTime(2021, 6, 16, 10, 0, 0), Isrecurring = true, FrequencyId = 2, OwnerId = 4 },
+                new GroupActivity { GoupActivityId = 8, GroupId = 4, Summary = "Group 4 Study", Location = "Online", Description = "Assignment Collaboration for group 4", StartTime = new DateTime(2021, 6, 16, 13, 0, 0), EndTime = new DateTime(2021, 6, 16, 14, 0, 0), Isrecurring = false, FrequencyId = 0, OwnerId = 4 }
                 );
 
             modelBuilder.Entity<GroupActivityMembership>().HasData(
