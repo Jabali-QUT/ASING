@@ -56,10 +56,10 @@ namespace ASING.Data
                 );
 
             modelBuilder.Entity<Unit>().HasData(
-                new Unit { UnitId = 1, Code = "Unit1", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName1" },
-                new Unit { UnitId = 2, Code = "Unit2", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName2" },
-                new Unit { UnitId = 3, Code = "Unit3", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName3" },
-                new Unit { UnitId = 4, Code = "Unit4", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName4" }
+                new Unit { UnitId = 1, Code = "Unit1", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnitName1" },
+                new Unit { UnitId = 2, Code = "Unit2", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnitName2" },
+                new Unit { UnitId = 3, Code = "Unit3", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnitName3" },
+                new Unit { UnitId = 4, Code = "Unit4", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnitName4" }
                 );
 
             modelBuilder.Entity<WorkDay>().HasData(
