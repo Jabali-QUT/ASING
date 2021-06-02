@@ -1,0 +1,96 @@
+﻿@model ASING.ViewModels.StudentDashboardViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    //Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<h1>Student Dashboard</h1>
+
+<div>
+    <h3>Profile</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UniversityUser.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UniversityUser.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UniversityUser.Surname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UniversityUser.Surname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UniversityUser.Profile)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UniversityUser.Profile)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    @foreach (var unitDetail in Model.UnitDetails)
+    {
+        <div>
+            <hr />
+            <h3>@unitDetail.UnitName</h3>
+            <h4>@unitDetail.GroupName</h4>
+
+            @if (unitDetail.GroupMemberships != null && unitDetail.GroupMemberships.Count > 0)
+            {
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <!-- <th>Group Id </th> -->
+                            <th>Student Id</th>
+                            <th>Status</th>
+                            <th>@String.Empty</th>
+                            <th>@String.Empty</th>
+                        </tr>
+                        @foreach (var groupMembership in unitDetail.GroupMemberships)
+                        {
+                            <tr>
+
+                                <!-- <td>@groupMembership.GroupId</td> -->
+                                <td>@groupMembership.StudentId</td>
+                                <td>@groupMembership.StatusName</td>
+                                <td>
+                                    @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
+                                    {
+                                        <input class="btn btn-success" type="button" value="Accept" onclick="location.href='@Url.Action("AcceptGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId })'" />
+
+                                    }
+                                    else
+                                    { @String.Empty}
+                                </td>
+
+                                <td>
+                                    @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
+                                    {
+                                        <input class="btn btn-danger" type="button" value="Deny" onclick="location.href='@Url.Action("DenyGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId } )'" />
+                                    }
+                                    else
+                                    { @String.Empty}
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                </div>
+                <input class="btn btn-primary" type="button" value="Group Activities" onclick="location.href='@Url.Action("Index", "GroupActivities", new { groupId = unitDetail.GroupId, studentId = Model.UniversityUser.UniversityId, unitId = unitDetail.UnitId } )'" />
+
+
+            }
+            else
+            {
+                <input type="button" class="btn btn-primary" value="Join Group" onclick="location.href='@Url.Action("JoinGroup", "Groups", new { studentId = Model.UniversityUser.UniversityId, unitId = unitDetail.UnitId } )'" />
+
+            }
+        </div>
+    }
+</div>

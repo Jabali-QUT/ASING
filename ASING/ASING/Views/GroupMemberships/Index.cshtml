@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ASING.Models.GroupMembership>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Group)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UniversityUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.GroupId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UniversityUser.UniversityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit.UnitId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.GroupMembershipId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.GroupMembershipId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.GroupMembershipId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
