@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ASING.Data;
 using ASING.Models;
 using ASING.ViewModels;
+using ASING.HelperClasses;
 
 namespace ASING.Controllers
 {
@@ -43,8 +44,11 @@ namespace ASING.Controllers
 
             var registrations = await _context.Registrations.Where(r => r.StudentId == id).ToListAsync();
             var studentDashboardVM = new StudentDashboardViewModel();
-            studentDashboardVM.UniversityUser = universityUser; 
-   
+            studentDashboardVM.UniversityUser = universityUser;
+            studentDashboardVM.BusyTimes = StudentAvailability.GetStudentsBusyTimes(id ?? 1 , _context);
+            studentDashboardVM.WorkDays = _context.WorkDays.ToList(); 
+
+
             foreach (var registration in registrations)
             {
                 var groupMembership = await _context.GroupMemberships.Where(gm => gm.StudentId == id && gm.UnitId == registration.UnitId).ToListAsync(); 
@@ -69,12 +73,44 @@ namespace ASING.Controllers
             }
 
             return View(studentDashboardVM);
-        } 
+        }
+
+        [HttpGet]
+        public IActionResult TimeDetails(int studentId)
+        {
+            TimeDetailsViewModel timeDetailsVM = new TimeDetailsViewModel();
+            timeDetailsVM.StudentId = studentId; 
+            timeDetailsVM.BlockedTimes = _context.BlockedTimes.Where(b => b.StudentId == studentId).ToList();
+            timeDetailsVM.BlockedTimes.OrderBy(b => b.DayId).ThenBy(b => b.StartTime);
+            var registrations = _context.Registrations.Where(r => r.StudentId == studentId).ToList();
+            foreach (var registration in registrations)
+            {
+                var timetables = _context.Timetables.Where(t => t.UnitId == registration.UnitId).ToList();
+                foreach (var timetable in timetables)
+                {
+                    timeDetailsVM.Timetables.Add(timetable);
+                }
+                timeDetailsVM.Timetables.OrderBy(t => t.DayId).ThenBy(t => t.StartTime);
+            }
+            return View(timeDetailsVM);
+        }
+
+        [HttpPost]
+        public IActionResult TimeDetails(TimeDetailsViewModel timeDetailsVM)
+        {
+            BlockedTime blockedTime = new BlockedTime();
+            blockedTime.StudentId = timeDetailsVM.StudentId;
+            blockedTime.DayId = timeDetailsVM.DayId;
+            blockedTime.StartTime = timeDetailsVM.StartTime;
+            blockedTime.EndTime = timeDetailsVM.EndTime;
+            _context.Add(blockedTime);
+            _context.SaveChanges(); 
+            return RedirectToAction("TimeDetails", "UniversityUsers", new { timeDetailsVM.StudentId });
+        }
 
 
-
-        // GET: UniversityUsers/Create
-        public IActionResult Create()
+            // GET: UniversityUsers/Create
+            public IActionResult Create()
         {
             return View();
         }

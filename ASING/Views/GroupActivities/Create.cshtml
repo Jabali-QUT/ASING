@@ -6,7 +6,7 @@
 }
 
 
-<h4>GroupActivity</h4>
+<h4>Group Activity</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -89,7 +89,9 @@
 
             $(".ddlFrequency").hide();
 
-            $(".datepicker").datetimepicker();
+            $(".datepicker").datetimepicker({
+                dateFormat:'dd/mm/yyyy'
+            });
 
             $("#chkIsrecurring").change(function () {
                 if ($(this).is(":checked")) {

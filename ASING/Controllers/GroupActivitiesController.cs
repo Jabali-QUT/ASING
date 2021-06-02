@@ -33,11 +33,27 @@ namespace ASING.Controllers
 
             var group = _context.Groups.Where(g => g.GroupId == groupId).FirstOrDefault();
             var groupActivities = _context.GroupActivities.Include(ga => ga.UniversityUser).Where(ga => ga.GroupId == groupId).ToList();
+            var pendingMemberships = _context.GroupActivityMemberships.Where(g => g.StudentId == studentId && g.StatusId != (int)Status.Accepted && g.GroupId == groupId).ToList(); 
             GroupActivitiesViewModel groupActivitiesVM = new GroupActivitiesViewModel();
 
             groupActivitiesVM.GroupName = group.Name;
             groupActivitiesVM.GroupId = group.GroupId;
-            groupActivitiesVM.StudentId = studentId; 
+            groupActivitiesVM.StudentId = studentId;
+
+            foreach (var pendingMembership in pendingMemberships)
+            {
+                GroupActivityMembershipViewModel groupActivityMembershipVM = new GroupActivityMembershipViewModel();
+                var tempGroupActivity = _context.GroupActivities.Where(g => g.GoupActivityId == pendingMembership.GoupActivityId).FirstOrDefault();
+                groupActivityMembershipVM.GroupActivityMembershipId = pendingMembership.GroupActivityMembershipId;
+                groupActivityMembershipVM.GroupId = pendingMembership.GroupId;
+                groupActivityMembershipVM.StudentId = pendingMembership.StudentId;
+                groupActivityMembershipVM.Summary = tempGroupActivity.Summary;
+                groupActivityMembershipVM.Location = tempGroupActivity.Location;
+                groupActivityMembershipVM.StartTime = tempGroupActivity.StartTime;
+                groupActivityMembershipVM.EndTime = tempGroupActivity.EndTime; 
+                groupActivitiesVM.PendingMemberships.Add(groupActivityMembershipVM);
+            }
+
             foreach (var groupActivity in groupActivities)
             {
                 GroupEventViewModel groupEventVM = new GroupEventViewModel();
@@ -65,6 +81,24 @@ namespace ASING.Controllers
             }
             return View(groupActivitiesVM);
         }
+
+        public async Task<IActionResult> AcceptGroupActivityMembership(int groupActivityMembershipId, int groupId, int studentId)
+        {
+            var groupActivityMembership = _context.GroupActivityMemberships.Where(g => g.GroupActivityMembershipId == groupActivityMembershipId).FirstOrDefault();
+            groupActivityMembership.StatusId = (int)Status.Accepted;
+            _context.Update(groupActivityMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "GroupActivities", new { groupId, studentId });
+        }
+
+        public async Task<IActionResult> DenyGroupActivityMembership(int groupActivityMembershipId, int groupId, int studentId)
+        {
+            var groupActivityMembership = await _context.GroupActivityMemberships.FindAsync(groupActivityMembershipId);
+            _context.GroupActivityMemberships.Remove(groupActivityMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "GroupActivities", new { groupId, studentId });
+        }
+
 
         [HttpGet("download")]
         public IActionResult DownloadCalendar(int groupId)

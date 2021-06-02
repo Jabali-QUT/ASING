@@ -11,27 +11,206 @@
     <h3>Profile</h3>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UniversityUser.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UniversityUser.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UniversityUser.Surname)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UniversityUser.Surname)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UniversityUser.Profile)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UniversityUser.Profile)
         </dd>
     </dl>
 </div>
+<br />
+<br />
 
+<h3>My Times</h3>
+<div class="table-responsive">
+    <table class="table table-responsive table-hover table-striped table-bordered">
+        <tr>
+            <th>@String.Empty</th>
+            <th>08-09</th>
+            <th>09-10</th>
+            <th>10-11</th>
+            <th>11-12</th>
+            <th>12-13</th>
+            <th>13-14</th>
+            <th>14-15</th>
+            <th>15-16</th>
+            <th>16-17</th>
+            <th>17-18</th>
+            <th>18-19</th>
+            <th>19-20</th>
+        </tr>
+
+        @foreach (var workDay in Model.WorkDays)
+        {
+            <tr>
+                <td>@workDay.DayName</td>
+
+                @{
+                    var busyTimes = Model.BusyTimes[workDay.DayId];
+                    string status = "free";
+                    if (busyTimes.Contains("08-09"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("09-10"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("10-11"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("11-12"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("12-13"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("13-14"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("14-15"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("15-16"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("16-17"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("17-18"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("18-19"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+                @{
+
+                    if (busyTimes.Contains("19-20"))
+                    {
+                        status = "busy";
+                    }
+                    else
+                    {
+                        status = "free";
+                    }
+                }
+                <td class="@status">@String.Empty</td>
+            </tr>
+        }
+    </table>
+</div>
+<input type="button" class="btn btn-primary" value="Update Times" onclick="location.href='@Url.Action("TimeDetails", "UniversityUsers", new { studentId = Model.UniversityUser.UniversityId } )'" />
+
+<br />
+<br />
 <div>
     @foreach (var unitDetail in Model.UnitDetails)
     {
@@ -58,7 +237,7 @@
                         <td>
                             @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
                             {
-                                <input type="button" value="Accept" onclick="location.href='@Url.Action("AcceptGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId })'" />
+                                <input type="button" class="btn btn-primary" value="Accept" onclick="location.href='@Url.Action("AcceptGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId })'" />
 
                             }
                             else
@@ -68,7 +247,7 @@
                         <td>
                             @if ((groupMembership.StatusId == 1 && groupMembership.StudentId == Model.UniversityUser.UniversityId) || (groupMembership.StatusId == 2 && unitDetail.OwnerId == Model.UniversityUser.UniversityId))
                             {
-                                <input type="button" value="Deny" onclick="location.href='@Url.Action("DenyGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId } )'" />
+                                <input type="button" class="btn btn-primary" value="Deny" onclick="location.href='@Url.Action("DenyGroupMembership", "Groups", new { studentId = Model.UniversityUser.UniversityId, groupMembershipId = groupMembership.GroupMembershipId } )'" />
                             }
                             else
                             { @String.Empty}
@@ -77,7 +256,7 @@
 
                 }
             </table>
-            <input type="button" value="Group Activities" onclick="location.href='@Url.Action("Index", "GroupActivities", new { groupId = unitDetail.GroupId, studentId = Model.UniversityUser.UniversityId, unitId = unitDetail.UnitId } )'" />
+            <input type="button" class="btn btn-primary" value="Group Activities" onclick="location.href='@Url.Action("Index", "GroupActivities", new { groupId = unitDetail.GroupId, studentId = Model.UniversityUser.UniversityId, unitId = unitDetail.UnitId } )'" />
 
 
         }
@@ -86,5 +265,19 @@
             <input type="button" class="btn btn-primary" value="Join Group" onclick="location.href='@Url.Action("JoinGroup", "Groups", new { studentId = Model.UniversityUser.UniversityId, unitId = unitDetail.UnitId } )'" />
 
         }
+        <br /><br />
     }
 </div>
+
+
+<style type="text/css">
+
+
+    .free {
+        background-color: #C6EFCE;
+    }
+
+    .busy {
+        background-color: #FFC7CE;
+    }
+</style>

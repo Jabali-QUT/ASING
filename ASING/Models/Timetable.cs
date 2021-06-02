@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using static ASING.HelperClasses.Constants;
 
 namespace ASING.Models
 {
@@ -17,6 +19,12 @@ namespace ASING.Models
         public int ClassTypeId { get; set; }
         public ClassType ClassType { get; set; }
         public int StartTime { get; set; } 
-        public int EndTime { get; set; }    
+        public int EndTime { get; set; }
+
+        [NotMapped]
+        public string DayName
+        {
+            get { return (Enum.GetName(typeof(Days), DayId)); }
+        }
     }
 }

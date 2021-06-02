@@ -10,6 +10,10 @@ namespace ASING.ViewModels
     {
         public UniversityUser UniversityUser { get; set; }
         public List<UnitDetailsViewModel> UnitDetails { get; set; } = new List<UnitDetailsViewModel>(); 
+        public Dictionary<int, HashSet<string>> BusyTimes { get; set; }
+        public List<WorkDay> WorkDays { get; set; } = new List<WorkDay>(); 
+
+
 
     }
 }

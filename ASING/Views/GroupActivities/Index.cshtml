@@ -18,11 +18,10 @@
 </p>
 
 <div>
-    <h1>Group event Details</h1>
+    <h1>Group Event Details</h1>
     <table cellpadding="0" cellspacing="0" class="table table-responsive table-hover table-striped">
         <tr>
             <th></th>
-            <th>Activity ID</th>
             <th>Description</th>
             <th>Start Time</th>
             <th>End Time</th>
@@ -53,7 +52,6 @@
                         </table>
                     </div>
                 </td>
-                <td>@groupEvent.GroupActivityId</td>
                 <td>@groupEvent.EventDescription</td>
                 <td>@groupEvent.StartTime</td>
                 <td>@groupEvent.EndTime</td>
@@ -65,10 +63,37 @@
         }
         <div><input type="hidden" asp-for="StudentId"></div>
     </table>
-    <p>
-        <input type="button" class="btn btn-primary" value="Download Calendar" onclick="location.href='@Url.Action("DownloadCalendar", "GroupActivities", new { groupId = Model.GroupId } )'" />
 
-    </p>
+    <h1>My Pending Approvals</h1>
+    <table cellpadding="0" cellspacing="0" class="table table-responsive table-hover table-striped">
+        <tr>
+            <th>Summary</th>
+            <th>Location</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>@String.Empty</th>
+            <th>@String.Empty</th>
+        </tr>
+        @foreach (var pendingMembership in Model.PendingMemberships)
+        {
+    <tr>
+        <td>@pendingMembership.Summary</td>
+        <td>@pendingMembership.Location</td>
+        <td>@pendingMembership.StartTime</td>
+        <td>@pendingMembership.EndTime</td>
+        <td><input type="button" class="btn btn-primary" value="Accept" onclick="location.href='@Url.Action("AcceptGroupActivityMembership", "GroupActivities", new { groupActivityMembershipId = pendingMembership.GroupActivityMembershipId, groupId = pendingMembership.GroupId, studentId = pendingMembership.StudentId })'" /></td>
+        <td><input type="button" class="btn btn-primary" value="Deny" onclick="location.href='@Url.Action("DenyGroupActivityMembership", "GroupActivities", new { groupActivityMembershipId = pendingMembership.GroupActivityMembershipId, groupId = pendingMembership.GroupId, studentId = pendingMembership.StudentId })'" /></td>
+    </tr>
+        }
+    </table>
+
+
+        <p>
+            <input type="button" class="btn btn-primary" value="Dashboard" onclick="location.href='@Url.Action("Details", "UniversityUsers", new { id = Model.StudentId } )'" />&nbsp;&nbsp;&nbsp;
+
+            <input type="button" class="btn btn-primary" value="Download Calendar" onclick="location.href='@Url.Action("DownloadCalendar", "GroupActivities", new { groupId = Model.GroupId } )'" />
+
+        </p>
 
 </div>
 @section Scripts {

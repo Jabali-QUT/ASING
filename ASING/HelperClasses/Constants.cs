@@ -21,5 +21,14 @@ namespace ASING.HelperClasses
             Daily = 1, 
             Weekly = 2
         }
+
+        public enum Days
+        {
+            Monday = 1, 
+            Tuesday = 2, 
+            Wednesday = 3, 
+            Thursday = 4, 
+            Friday = 5
+        }
     }
 }

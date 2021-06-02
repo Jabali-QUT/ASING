@@ -6,7 +6,7 @@
 <div>
     @foreach (var unitGroupDetail in Model.UnitGroupDetails)
     {
-        <p>Group Name: @unitGroupDetail.GroupName</p>
+        <h4>Group Name: @unitGroupDetail.GroupName</h4>
 
         <table class="table table-responsive table-hover table-striped">
             <tr>
@@ -33,11 +33,13 @@
                 </tr>
             }
         </table>
-        <input type="button" value="Request to Join" onclick="location.href='@Url.Action("RequestToJoin", "Groups", new { studentId = Model.StudentId, groupId = unitGroupDetail.GroupId, unitId = Model.UnitId,  } )'" />
+        <input type="button" class="btn btn-primary" value="Request to Join" onclick="location.href='@Url.Action("RequestToJoin", "Groups", new { studentId = Model.StudentId, groupId = unitGroupDetail.GroupId, unitId = Model.UnitId,  } )'" />
+        <br /><br />
     }
     <br />
     <br />
     <div>
-        <input type="button" value="Form New Group" onclick="location.href='@Url.Action("Create", "Groups", new { studentId = Model.StudentId, unitId = Model.UnitId,  } )'" />
+        <input type="button" class="btn btn-primary" value="Form New Group" onclick="location.href='@Url.Action("Create", "Groups", new { studentId = Model.StudentId, unitId = Model.UnitId,  } )'" />&nbsp;&nbsp;&nbsp;
+        <input type="button" class="btn btn-primary" value="Dashboard" onclick="location.href='@Url.Action("Details", "UniversityUsers", new { id = Model.StudentId } )'" />
     </div>
 </div>

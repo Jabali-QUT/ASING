@@ -1,0 +1,132 @@
+﻿@model ASING.ViewModels.TimeDetailsViewModel
+
+@{
+    ViewData["Title"] = "Time Details";
+}
+
+<h4>My Time Details</h4>
+<hr />
+
+<h3>Block Time</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="TimeDetails">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="DayId" class="control-label"></label>
+                <select asp-for="DayId" class="form-control">
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                </select>
+                <span asp-validation-for="DayId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartTime" class="control-label"></label>
+                <select asp-for="StartTime" class="form-control">
+                    <option value="8">08:00</option>
+                    <option value="9">09:00</option>
+                    <option value="10">10:00</option>
+                    <option value="11">11:00</option>
+                    <option value="12">12:00</option>
+                    <option value="13">13:00</option>
+                    <option value="14">14:00</option>
+                    <option value="15">15:00</option>
+                    <option value="16">16:00</option>
+                    <option value="17">17:00</option>
+                    <option value="18">18:00</option>
+                    <option value="19">19:00</option>
+                </select>
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndTime" class="control-label"></label>
+                <select asp-for="EndTime" class="form-control">
+                    <option value="9">09:00</option>
+                    <option value="10">10:00</option>
+                    <option value="11">11:00</option>
+                    <option value="12">12:00</option>
+                    <option value="13">13:00</option>
+                    <option value="14">14:00</option>
+                    <option value="15">15:00</option>
+                    <option value="16">16:00</option>
+                    <option value="17">17:00</option>
+                    <option value="18">18:00</option>
+                    <option value="19">19:00</option>
+                    <option value="20">20:00</option>
+                </select>
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+            <div><input type="hidden" asp-for="StudentId"></div>
+            <div class="form-group">
+                <input type="submit" value="Add Blocked Time" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<h3>My Blocked Times</h3>
+<div>
+    <table class="table table-responsive table-hover table-striped">
+        <tr>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>@String.Empty</th>
+        </tr>
+        @foreach (var blockedTime in Model.BlockedTimes)
+        {
+
+            string fmt = "00.##";
+            string startTime = string.Concat(blockedTime.StartTime.ToString(fmt), ":00");
+            string endTime = string.Concat(blockedTime.EndTime.ToString(fmt), ":00");
+            <tr>
+
+                <td>@blockedTime.DayName</td>
+                <td>@startTime</td>
+                <td>@endTime</td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+<h3>My Timetable</h3>
+<div>
+    <table class="table table-responsive table-hover table-striped">
+        <tr>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>@String.Empty</th>
+        </tr>
+        @foreach (var timetable in Model.Timetables)
+        {
+
+            string fmt = "00.##";
+            string startTime = string.Concat(timetable.StartTime.ToString(fmt), ":00");
+            string endTime = string.Concat(timetable.EndTime.ToString(fmt), ":00");
+
+            <tr>
+                <td>@timetable.DayName</td>
+                <td>@startTime</td>
+                <td>@endTime</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<br />
+<br />
+<input type="button" class="btn btn-primary" value="Dashboard" onclick="location.href='@Url.Action("Details", "UniversityUsers", new { id = Model.StudentId } )'" />
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

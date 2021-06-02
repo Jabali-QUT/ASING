@@ -56,10 +56,10 @@ namespace ASING.Data
                 );
 
             modelBuilder.Entity<Unit>().HasData(
-                new Unit { UnitId = 1, Code = "Unit1", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName1" },
-                new Unit { UnitId = 2, Code = "Unit2", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName2" },
-                new Unit { UnitId = 3, Code = "Unit3", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName3" },
-                new Unit { UnitId = 4, Code = "Unit4", GroupsAllowed = true, IsAssesementGroup = true, Name = "UnintName4" }
+                new Unit { UnitId = 1, Code = "Unit1", GroupsAllowed = true, IsAssesementGroup = true, Name = "Unit Name1" },
+                new Unit { UnitId = 2, Code = "Unit2", GroupsAllowed = true, IsAssesementGroup = true, Name = "Unit Name2" },
+                new Unit { UnitId = 3, Code = "Unit3", GroupsAllowed = true, IsAssesementGroup = true, Name = "Unit Name3" },
+                new Unit { UnitId = 4, Code = "Unit4", GroupsAllowed = true, IsAssesementGroup = true, Name = "Unit Name4" }
                 );
 
             modelBuilder.Entity<WorkDay>().HasData(
@@ -269,7 +269,7 @@ namespace ASING.Data
 
             modelBuilder.Entity<GroupActivityMembership>().HasData(
                 //group 1 - first activity
-                new GroupActivityMembership { GroupActivityMembershipId = 1, GroupId = 1, GoupActivityId = 1, StudentId = 1, StatusId = 3},
+                new GroupActivityMembership { GroupActivityMembershipId = 1, GroupId = 1, GoupActivityId = 1, StudentId = 1, StatusId = 1},
                 new GroupActivityMembership { GroupActivityMembershipId = 2, GroupId = 1, GoupActivityId = 1, StudentId = 2, StatusId = 3},
                 new GroupActivityMembership { GroupActivityMembershipId = 3, GroupId = 1, GoupActivityId = 1, StudentId = 3, StatusId = 3 },
                 new GroupActivityMembership { GroupActivityMembershipId = 4, GroupId = 1, GoupActivityId = 1, StudentId = 4, StatusId = 3 },
@@ -281,7 +281,7 @@ namespace ASING.Data
                 new GroupActivityMembership { GroupActivityMembershipId = 8, GroupId = 1, GoupActivityId = 2, StudentId = 4, StatusId = 3 },
                 
                 //group 2 - first activity
-                new GroupActivityMembership { GroupActivityMembershipId = 9, GroupId = 2, GoupActivityId = 3, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 9, GroupId = 2, GoupActivityId = 3, StudentId = 1, StatusId = 1 },
                 new GroupActivityMembership { GroupActivityMembershipId = 10, GroupId = 2, GoupActivityId = 3, StudentId = 2, StatusId = 3 },
                 new GroupActivityMembership { GroupActivityMembershipId = 11, GroupId = 2, GoupActivityId = 3, StudentId = 3, StatusId = 3 },
                 new GroupActivityMembership { GroupActivityMembershipId = 12, GroupId = 2, GoupActivityId = 3, StudentId = 4, StatusId = 3 },
@@ -293,7 +293,7 @@ namespace ASING.Data
                 new GroupActivityMembership { GroupActivityMembershipId = 16, GroupId = 2, GoupActivityId = 4, StudentId = 4, StatusId = 3 },
 
                 //group 3 - first activity
-                new GroupActivityMembership { GroupActivityMembershipId = 17, GroupId = 3, GoupActivityId = 5, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 17, GroupId = 3, GoupActivityId = 5, StudentId = 1, StatusId = 1 },
                 new GroupActivityMembership { GroupActivityMembershipId = 18, GroupId = 3, GoupActivityId = 5, StudentId = 2, StatusId = 3 },
                 new GroupActivityMembership { GroupActivityMembershipId = 19, GroupId = 3, GoupActivityId = 5, StudentId = 3, StatusId = 3 },
                 new GroupActivityMembership { GroupActivityMembershipId = 20, GroupId = 3, GoupActivityId = 5, StudentId = 4, StatusId = 3 },
@@ -305,7 +305,7 @@ namespace ASING.Data
                 new GroupActivityMembership { GroupActivityMembershipId = 24, GroupId = 3, GoupActivityId = 6, StudentId = 4, StatusId = 3 },
 
                 //group 4 - first activity
-                new GroupActivityMembership { GroupActivityMembershipId = 25, GroupId = 4, GoupActivityId = 7, StudentId = 1, StatusId = 3 },
+                new GroupActivityMembership { GroupActivityMembershipId = 25, GroupId = 4, GoupActivityId = 7, StudentId = 1, StatusId = 1 },
                 new GroupActivityMembership { GroupActivityMembershipId = 26, GroupId = 4, GoupActivityId = 7, StudentId = 2, StatusId = 3 },
                 new GroupActivityMembership { GroupActivityMembershipId = 27, GroupId = 4, GoupActivityId = 7, StudentId = 3, StatusId = 3 },
                 new GroupActivityMembership { GroupActivityMembershipId = 28, GroupId = 4, GoupActivityId = 7, StudentId = 4, StatusId = 3 },
